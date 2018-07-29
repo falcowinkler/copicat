@@ -2,17 +2,11 @@
 
 (def dim 30)
 
-(def data-to-draw-data
-  {"00"
-   {:lines []
-    :arcs  []}
-   "10"
-   {:lines
-          [[0 0 0 dim]
-           [0 0 dim 0]
-           [dim 0 dim dim]
-           [0 dim dim dim]]
-    :arcs []}})
+(def tile-code-to-draw-forms
+  {:fill-mode
+   {"00" '()
+    "10"
+    `((quil.core/rect 0 0 dim dim))}})
 
 (def board-width 42)
 (def board-height 23)
@@ -24,5 +18,6 @@
 (defn index-for-coordinate [x y]
   (+ (* y board-width) x))
 
-(defn get-lines [tile-data index]
-  (:lines (get data-to-draw-data (nth tile-data index))))
+(defn get-draw-forms [tile-data index]
+   (get (:fill-mode tile-code-to-draw-forms) (nth tile-data index)))
+
