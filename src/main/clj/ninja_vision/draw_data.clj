@@ -5,104 +5,101 @@
 
 (def tile-code-to-draw-forms
   {:fill-mode
-   {"00" '()
-    "01"
+   {0x00 '()
+    0x01
          `((rect 0 0 d d))
-    "08"
-         `((triangle 0 d d 0 d d))
-    "09"
+    0x08 `((triangle 0 d d 0 d d))
+    0x09
          `((triangle 0 0 0 d d d))
-    "07"
+    0x07
          `((triangle 0 0 d 0 d d))
-    "06"
+    0x06
          `((triangle 0 0 0 d d 0))
-    "14"
+    0x14
          `((triangle 0 d d (/ d 2) d d))
-    "15"
+    0x15
          `((triangle 0 (/ d 2) 0 d d d))
-    "13"
+    0x13
          `((triangle 0 0 d (/ d 2) d 0))
-    "12"
+    0x12
          `((triangle 0 0 0 (/ d 2) d 0))
-    "18"
+    0x18
          `((do
              (rect 0 (/ d 2) d (/ d 2))
              (triangle 0 (/ d 2) d 0 d (/ d 2))))
-    "19"
+    0x19
          `((do
              (rect 0 (/ d 2) d (/ d 2))
              (triangle 0 0 d (/ d 2) 0 (/ d 2))))
-    "17"
+    0x17
          `((do
              (rect 0 0 d (/ d 2))
              (triangle 0 (/ d 2) d (/ d 2) d d)))
-    "16"
+    0x16
          `((do
              (rect 0 0 d (/ d 2))
              (triangle 0 (/ d 2) d (/ d 2) 0 d)))
-    "1c"
+    0x1c
          `((triangle (/ d 2) d d 0 d d))
-    "1d"
+    0x1d
          `((triangle 0 0 0 d (/ d 2) d))
-    "1b"
+    0x1b
          `((triangle (/ d 2) 0 d 0 d d))
-    "1a"
+    0x1a
          `((triangle 0 0 (/ d 2) 0 0 d))
-    "20"
+    0x20
          `((do
              (rect (/ d 2) 0 (/ d 2) d)
              (triangle 0 d (/ d 2) 0 (/ d 2) d)))
-    "21"
+    0x21
          `((do
              (rect 0 0 (/ d 2) d)
              (triangle (/ d 2) 0 (/ d 2) d d d)))
-    "1f"
+    0x1f
          `((do
              (rect (/ d 2) 0 (/ d 2) d)
              (triangle 0 0 (/ d 2) 0 (/ d 2) d)))
-    "1e"
+    0x1e
          `((do
              (rect 0 0 (/ d 2) d)
              (triangle (/ d 2) 0 (/ d 2) d d 0)))
-    "0c"
+    0x0c
          `((arc d d (* d 2) (* d 2) PI (+ PI HALF-PI)))
-    "0d"
+    0x0d
          `((arc 0 d (* d 2) (* d 2) (+ PI HALF-PI) (* 2 PI)))
-    "0b"
+    0x0b
          `((arc d 0 (* d 2) (* d 2) HALF-PI PI))
-    "0a"
+    0x0a
          `((arc 0 0 (* d 2) (* d 2) 0 HALF-PI))
 
-    "10" `((begin-shape)
+    0x10 `((begin-shape)
            (vertex d d)
            (bezier-vertex d d d 0 d 0)
            (bezier-vertex d d 0 d 0 d)
            (end-shape))
-    "11" `((begin-shape)
+    0x11 `((begin-shape)
            (vertex 0 d)
            (bezier-vertex 0 0 0 d 0 0)
            (bezier-vertex 0 d d d d d)
            (end-shape))
-    "0f" `((begin-shape)
+    0x0f `((begin-shape)
            (vertex d 0)
            (bezier-vertex d d d 0 d d)
            (bezier-vertex d 0 0 0 0 0)
            (end-shape))
-    "0e" `((begin-shape)
+    0x0e `((begin-shape)
            (vertex 0 0)
            (bezier-vertex 0 0 d 0 d 0)
            (bezier-vertex 0 0 0 d 0 d)
            (end-shape))
-    "05"
+    0x05
          `((rect 0 0 (/ d 2) d))
-    "02"
+    0x02
          `((rect 0 0 d (/ d 2)))
-    "04"
+    0x04
          `((rect 0 (/ d 2) d (/ d 2)))
-    "03"
+    0x03
          `((rect (/ d 2) 0 (/ d 2) d))}})
-
-
 
 (def board-width 42)
 (def board-height 23)

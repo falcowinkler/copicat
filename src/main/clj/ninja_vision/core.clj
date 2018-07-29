@@ -5,11 +5,12 @@
             [clojure.java.io :refer :all]
             [ninja-vision.extraction :refer :all]))
 
+; args: --show
+
+
 (defn -main
-  [& args])
-(let [test-data (slurp (resource "sample_data.txt"))
-      tile-data (extract-tile-data test-data)]
+  [& args]
   (q/sketch
     :size [1260 690]
-    :draw (partial draw tile-data)))
+    :draw (partial draw (get-tile-data-from-byte-array "test"))))
 
