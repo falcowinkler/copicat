@@ -5,8 +5,8 @@
 
 (deftest test-extract-tile-data
   (testing "Given a line of level data, test if tile data is extracted correctly"
-    (let [testdata (slurp (resource "sample_data.txt"))]
-      (is (= "1010" (subs (extract-tile-data testdata) 0 4))))))
+    (let [test-data (slurp (resource "sample_data.txt"))]
+      (is (= "1010" (subs (extract-tile-data test-data) 0 4))))))
 
 (deftest test-split-tile-data
   (testing "Split the test data in chunks"
