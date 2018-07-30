@@ -1,4 +1,4 @@
-(ns ninja-vision.brush-test
+(ns ninja-vision.draw_data_test
   (:require [clojure.test :refer :all]
             [clojure.java.io :refer :all]
             [ninja-vision.extraction :refer :all]
