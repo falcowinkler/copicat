@@ -1,4 +1,8 @@
-(ns ninja-vision.extraction)
+(ns ninja-vision.extraction
+  (:require
+    [ninja-vision.io :refer :all]))
+
+
 
 (def tile-data-regex #"\$[a-z]+#00000000([0-9].{1932})")
 
@@ -10,11 +14,7 @@
 (defn split-tile-data [tile-data]
   (map (partial apply str) (partition 2 tile-data)))
 
-(defn slurp-bytes
-  [x]
-  (with-open [out (java.io.ByteArrayOutputStream.)]
-    (clojure.java.io/copy (java.lang.ClassLoader/getSystemResourceAsStream x) out)
-    (.toByteArray out)))
 
-(defn get-tile-data-from-byte-array [file-name]
-  (subvec (vec (slurp-bytes file-name)) 0xB8 0x47E))
+
+(defn get-tile-data-from-binary-file [file]
+  (subvec (slurp-bytes file) 0xB8 0x47E))

@@ -4,6 +4,7 @@
     [quil.core :as q]
     [ninja-vision.drawing :refer :all]
     [ninja-vision.extraction :refer :all]
+    [ninja-vision.io :refer :all]
     [clojure.java.io :as io]
     [clojure.tools.cli :as cli]))
 
@@ -28,7 +29,8 @@
   [& args]
   (let [{:keys [input-path output-path input-format output-format]}
         (:options (cli/parse-opts args cli-options))]
+
     (q/sketch
       :size [1260 690]
-      :draw (partial draw (get-tile-data-from-byte-array "test")))))
+      :draw (partial draw (get-tile-data-from-binary-file (io/resource "test"))))))
 
