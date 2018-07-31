@@ -5,7 +5,6 @@
 
 (deftest get-file-or-files-test
   (testing "If get file or files works"
-    (print (get-file-or-files "src/test/resources/some-binaries"))
     (is (= 4 (count
                (filter #(not (= ".DS_Store" (.getName %)))
                        (get-file-or-files "src/test/resources/some-binaries")))))
@@ -20,3 +19,4 @@
     (with-open [w (io/output-stream bfile)] (.write w 0x23) (.write w 0x1a))
     (is (= [0x23 0x1a] (slurp-bytes bfile)))
     (io/delete-file bfile)))
+

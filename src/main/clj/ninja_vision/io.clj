@@ -11,5 +11,7 @@
 (defn get-file-or-files [path]
   (if
     (.isDirectory (io/file path))
-    (filter #(.isFile %) (file-seq (clojure.java.io/file path)))
+    (vec (filter #(and (.isFile %)
+                   (not (= ".DS_Store" (.getName %))))
+               (file-seq (clojure.java.io/file path))))
     [(io/file path)]))
