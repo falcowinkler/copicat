@@ -113,4 +113,3 @@
 
 (defn get-draw-forms [tile-data index]
   (get (:fill-mode tile-code-to-draw-forms) (nth tile-data index)))
-

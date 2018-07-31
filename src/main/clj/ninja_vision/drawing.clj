@@ -2,7 +2,6 @@
   (:require [quil.core :refer :all]
             [ninja-vision.draw-data :refer :all]))
 
-
 (defn draw [tile-data]
   (background 204 202 206)
   (doseq [[x y]
@@ -21,14 +20,10 @@
   (doseq [[path-to-file tile-data] filename-to-tile-data]
     (draw tile-data)
     (save (str path-to-file ".png"))
-    (println (str "Saved image >> " path-to-file ".png"))))
+    (println (str "Saved image >> " path-to-file ".png")))
+  (exit))
 
 (defn save-images [filename-to-tile-data]
-  (defsketch canvas
-             :size [1260 690]
-             :draw (partial draw-and-save filename-to-tile-data)))
-
-(defn save-img [tile-data filename]
-  (defsketch canvas
-             :size [1260 690]
-             :draw (partial draw-and-save tile-data filename)))
+  (sketch
+    :size [1260 690]
+    :draw (partial draw-and-save filename-to-tile-data)))
