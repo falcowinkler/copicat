@@ -8,7 +8,7 @@ http://www.metanetsoftware.com/games/nplusplus
 http://www.metanetsoftware.com/games/n
 
 This repository contains the various format conversions needed.
-The idea is to write conversions from every available format (nv1 textual, n++ textual (maybe, only used for the levels created by metanet, and the custom machine learning format) to the n++ binary format.
+The idea is to write conversions from every available format (nv1 textual, n++ textual (maybe, only used for the levels created by metanet), and the custom machine learning format) to the n++ binary format.
 Then the binary format can be converted to images, can be loaded in the actual game, converted back to ML format etc.
 
 ## Usage
