@@ -12,6 +12,10 @@
   (if
     (.isDirectory (io/file path))
     (vec (filter #(and (.isFile %)
-                   (not (= ".DS_Store" (.getName %))))
-               (file-seq (clojure.java.io/file path))))
+                       (not (= ".DS_Store" (.getName %))))
+                 (file-seq (clojure.java.io/file path))))
     [(io/file path)]))
+
+(defn get-lines-from-file [file]
+  (with-open [reader (clojure.java.io/reader file)]
+    (vec (line-seq reader))))

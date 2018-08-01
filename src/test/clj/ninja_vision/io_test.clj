@@ -20,3 +20,7 @@
     (is (= [0x23 0x1a] (slurp-bytes bfile)))
     (io/delete-file bfile)))
 
+(deftest test-get-lines-from-file
+  (testing "parsing file line by line"
+    (is (= ["reboot" "tut" "gut"
+            (get-lines-from-file "src/test/resources/test-file.txt")]))))

@@ -30,10 +30,9 @@
   (let [opts (cli/parse-opts args cli-options)
         {:keys [input-path output-path input-format output-format]}
         (:options opts)]
-
     (if (not (nil? (:errors opts)))
       (print "Error: " (:errors opts))
       (case output-format
         :image
         (save-images
-          (get-name-data-list input-path output-path input-format))))))
+          (get-name-data-list input-path output-path input-format) input-format)))))
