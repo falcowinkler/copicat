@@ -5,7 +5,7 @@
 
 (deftest get-file-or-files-test
   (testing "If get file or files works"
-    (is (= 4 (count
+    (is (= 5 (count
                (filter #(not (= ".DS_Store" (.getName %)))
                        (get-file-or-files "src/test/resources/some-binaries")))))
     (is (= 1 (count (get-file-or-files "src/test/resources/test"))))))
