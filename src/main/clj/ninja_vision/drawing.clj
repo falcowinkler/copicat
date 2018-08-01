@@ -16,7 +16,7 @@
 
 (defn draw-and-save [filename-to-tile-data format]
   (fill 124 120 136)
-  (no-stroke)
+  (stroke 255 255 255)
   (no-loop)
   (doseq [[path-to-file tile-data]  filename-to-tile-data]
 
