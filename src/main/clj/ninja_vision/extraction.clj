@@ -21,26 +21,25 @@
 (defn extract-level-name [level-data]
   (first (re-find (re-matcher level-name-regex level-data))))
 
-(defn string-tile-data-to-binary [tile-data format]
-  (case format
-    :text-n++
-    (n++/to-binary tile-data)
-    :text-n
-    (n/to-binary tile-data)))
-
+(defn string-format-to-binary [string-data format]
+  (let [tile-data (extract-tile-data string-data format)]
+    (case format
+      :text-n++
+      (n++/to-binary tile-data)
+      :text-n
+      (n/to-binary tile-data))))
 
 (defn get-tile-data-from-binary-file [file]
   (subvec (slurp-bytes file) 0xB8 0x47E))
 
-(defn get-name-data-list [input-path output-path input-format]
+(defn get-name-data-pairs [input-path output-path input-format]
   (case
     input-format
     :binary
     (for [file (get-file-or-files input-path)]
       [(str output-path "/" (.getName file))
        (get-tile-data-from-binary-file file)])
-
     (for [file (get-file-or-files input-path)
           line (get-lines-from-file file)]
       [(str output-path "/" (extract-level-name line))
-       (string-tile-data-to-binary (extract-tile-data line input-format) input-format)])))
+       (string-format-to-binary line input-format)])))

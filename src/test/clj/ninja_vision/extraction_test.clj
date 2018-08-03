@@ -2,13 +2,15 @@
   (:require [clojure.test :refer :all]
             [ninja-vision.extraction :refer :all]
             [clojure.java.io :refer :all]
+            [ninja-vision.formats.nplusplus :refer :all]
             [clojure.java.io :as io]))
 
-(def test-string (slurp (resource "sample_data.txt")))
+(def test-file-path "src/test/resources/sample_data.txt")
+(def test-string (slurp "src/test/resources/sample_data.txt"))
 
 (deftest test-extract-tile-data
   (testing "Given a line of level data, test if tile data is extracted correctly"
-    (is (= "0809" (subs (extract-tile-data test-string) 0 4)))))
+    (is (= "0809" (subs (extract-tile-data test-string :text-n++) 0 4)))))
 
 (deftest test-extract-level-name
   (testing "Level name is extracted from textual level format"
@@ -27,10 +29,13 @@
   (testing "the conversion from text to binary works"
     (is (= [0x08 0x09 0x07 0x06]
            (subvec
-             (string-tile-data-to-binary
-               (extract-tile-data test-string))
+             (string-format-to-binary test-string :text-n++)
              0 4)))
     (is (= 966
             (count
-              (string-tile-data-to-binary
-                (extract-tile-data test-string)))))))
+              (string-format-to-binary test-string :text-n++))))))
+
+(deftest get-name-data-pairs-test
+  (testing "if name-data-pairs are extracted"
+    (is (= [["output-folder/flateau" (string-format-to-binary test-string :text-n++)]]
+           (get-name-data-pairs test-file-path "output-folder" :text-n++)))))

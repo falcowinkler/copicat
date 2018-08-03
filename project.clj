@@ -5,7 +5,10 @@
             :url  "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [quil "2.7.1"]
-                 [org.clojure/tools.cli "0.3.7"]]
+                 [org.clojure/tools.cli "0.3.7"]
+                 [org.clojure/tools.logging "0.4.0"]
+                 [ch.qos.logback/logback-classic "1.1.3"]]
+
   :main ^:skip-aot ninja-vision.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}}

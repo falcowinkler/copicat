@@ -1,8 +1,8 @@
 (ns ninja-vision.drawing
   (:require [quil.core :refer :all]
             [ninja-vision.draw-data :refer :all]
-            [ninja-vision.code-to-tile :refer :all]))
-
+            [ninja-vision.code-to-tile :refer :all]
+            [clojure.tools.logging :as log]))
 
 (defn draw [tile-data]
   (background 204 202 206)
@@ -21,7 +21,7 @@
   (doseq [[path-to-file tile-data] filename-to-tile-data]
     (draw tile-data)
     (save (str path-to-file ".png"))
-    (print (str "Saved image >> " path-to-file ".png")))
+    (log/info (str "Saved image " path-to-file ".png")))
   (exit))
 
 (defn image-width [filename-to-tile-data]

@@ -5,7 +5,11 @@
     [ninja-vision.extraction :refer :all]
     [ninja-vision.io :refer :all]
     [clojure.java.io :as io]
-    [clojure.tools.cli :as cli]))
+    [clojure.tools.cli :as cli]
+    [clojure.tools.logging :as log]))
+
+(defn exists-in [col item]
+  (some #(= % item) col))
 
 
 (def cli-options
@@ -20,10 +24,14 @@
    [nil "--input-format binary|text-n++|text-n|ml" "Input format"
     :id :input-format
     :default :binary
+    :validate [#(exists-in [:binary :text-n++ :text-n :ml] %)
+               (str "Input format not supported")]
     :parse-fn #(keyword %)]
    [nil "--output-format binary|text-n|ml|image" "Output format"
     :id :output-format
     :default :image
+    :validate [#(exists-in [:binary :text-n :ml :image] %)
+               (str "Output format not supported")]
     :parse-fn #(keyword %)]])
 
 (defn -main
@@ -32,8 +40,10 @@
         {:keys [input-path output-path input-format output-format]}
         (:options opts)]
     (if (not (nil? (:errors opts)))
-      (print "Error: " (:errors opts))
+      (do
+        (log/info "Could not parse args: " (:errors opts))
+        (log/info "Usage: " (:summary opts)))
       (case output-format
         :image
         (save-images
-          (get-name-data-list input-path output-path input-format))))))
+          (get-name-data-pairs input-path output-path input-format))))))
