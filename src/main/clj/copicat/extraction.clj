@@ -10,20 +10,19 @@
     :text-n++
     #"\$.+#0000000([0-9a-f].{1932})"
     :text-n
-    #"\$.*#.*#.*#(..{712})"))
+    #".*#.*#.*#([0-9A-P@;:y=?<>]{713,})"))
 
 (def level-name-regex #"(?<=\$)(.*?)(?=\#)")
 
 (defn extract-tile-data [level-data input-format]
   (let [matcher (re-matcher (tile-data-regex input-format) level-data)]
-    (if (= (.groupCount matcher) 2)
+    (if (not (nil? (re-find matcher)))
       (second (re-groups matcher)))))
 
 (defn extract-level-name [level-data]
   (if-let [result (re-find level-name-regex level-data)]
     (let [clean-result (string/replace (string/trim (first result)) "/" "-")]
-      (str "npp_"
-           (if (> (count clean-result) 100) (subs clean-result 0 100) clean-result)))))
+      (if (> (count clean-result) 100) (subs clean-result 0 100) clean-result))))
 
 (defn string-format-to-binary [string-data format]
   (if-let [tile-data (extract-tile-data string-data format)]

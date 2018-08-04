@@ -6,13 +6,22 @@
             [protobuf.core :as protobuf]))
 
 (deftest test-format-conversion
-  (testing "if tfrecord conversion works"
+  (testing "if protobuf conversion works"
     (let [protobuf-tiledata
           (ml/to-protobuf
             (ex/get-tile-data-from-binary-file "resources/test"))
           test-f "testfile.protobuf"]
       (protobuf/write protobuf-tiledata test-f)
+      (print protobuf-tiledata)
       (is
         (= protobuf-tiledata
-           (ml/read-protobuf-file test-f)))
-      (io/delete-file test-f))))
+           (ml/read-protobuf-file test-f))))))
+
+
+(deftest test-create-dataset
+  (testing "if it works"
+    (ml/create-dataset
+      [["twungg" (ex/get-tile-data-from-binary-file "resources/test")]])
+    (is (= (ml/to-protobuf
+             (ex/get-tile-data-from-binary-file "resources/test"))
+           (ml/read-protobuf-file "twungg.pb")))))

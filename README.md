@@ -22,4 +22,4 @@ For example
 `lein run --input-format text-n --output-format image -i resources/numa_archive.csv -o out
 ## Compile protobuf
 
-`protoc --java_out src/main/java/ -I resources/proto/ resources/proto/*.proto
+`protoc --java_out src/main/java/ -I resources/proto/ resources/proto/*.proto`
