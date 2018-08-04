@@ -1,0 +1,9 @@
+syntax = "proto3";
+package copicat;
+option java_package = "copicat.proto";
+option java_outer_classname = "DataProtos";
+option java_multiple_files = true;
+
+message TileData {
+    bytes raw_data = 1;
+};

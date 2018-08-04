@@ -1,3 +1,3 @@
-# Introduction to ninja-vision
+# Introduction to copicat
 
 TODO: write [great documentation](http://jacobian.org/writing/what-to-write/)

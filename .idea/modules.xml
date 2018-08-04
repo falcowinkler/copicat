@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ninja-vision.iml" filepath="$PROJECT_DIR$/ninja-vision.iml" />
+      <module fileurl="file://$PROJECT_DIR$/copicat.iml" filepath="$PROJECT_DIR$/copicat.iml" />
     </modules>
   </component>
 </project>

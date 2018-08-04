@@ -1,4 +1,4 @@
-(defproject ninja-vision "0.1.0-SNAPSHOT"
+(defproject copicat "0.1.0-SNAPSHOT"
   :description "FIXME: write description"
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
@@ -7,12 +7,14 @@
                  [quil "2.7.1"]
                  [org.clojure/tools.cli "0.3.7"]
                  [org.clojure/tools.logging "0.4.0"]
-                 [ch.qos.logback/logback-classic "1.1.3"]]
-
-  :main ^:skip-aot ninja-vision.core
-  :target-path "target/%s"
-  :profiles {:uberjar {:aot :all}}
+                 [ch.qos.logback/logback-classic "1.1.3"]
+                 [clojusc/protobuf "3.5.1-v1.1"]
+                 [compliment "0.3.6"]]
+  :main ^:skip-aot copicat.core
+  :target-path "target/default"
+  :profiles {:uberjar {:aot :all}
+             :dev {:java-source-paths ["src/main/java"]}}
   :source-paths ["src/main/clj"]
   :test-paths ["src/test/clj"]
-  :resource-paths ["src/main/resources"])
+  :resource-paths ["resources"])
 
