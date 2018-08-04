@@ -2,7 +2,8 @@
   (:require
     [copicat.io :refer :all]
     [copicat.formats.nplusplus :as n++]
-    [copicat.formats.n :as n]))
+    [copicat.formats.n :as n]
+    [clojure.string :as string]))
 
 (defn tile-data-regex [format]
   (case format
@@ -15,14 +16,17 @@
 
 (defn extract-tile-data [level-data input-format]
   (let [matcher (re-matcher (tile-data-regex input-format) level-data)]
-    (re-find matcher)
-    (second (re-groups matcher))))
+    (if (= (.groupCount matcher) 2)
+      (second (re-groups matcher)))))
 
 (defn extract-level-name [level-data]
-  (first (re-find (re-matcher level-name-regex level-data))))
+  (if-let [result (re-find level-name-regex level-data)]
+    (let [clean-result (string/replace (string/trim (first result)) "/" "-")]
+      (str "npp_"
+           (if (> (count clean-result) 100) (subs clean-result 0 100) clean-result)))))
 
 (defn string-format-to-binary [string-data format]
-  (let [tile-data (extract-tile-data string-data format)]
+  (if-let [tile-data (extract-tile-data string-data format)]
     (case format
       :text-n++
       (n++/to-binary tile-data)
@@ -41,5 +45,6 @@
        (get-tile-data-from-binary-file file)])
     (for [file (get-file-or-files input-path)
           line (get-lines-from-file file)]
-      [(str output-path "/" (extract-level-name line))
-       (string-format-to-binary line input-format)])))
+      (if-let [name (extract-level-name line)]
+        [(str output-path "/" name)
+         (string-format-to-binary line input-format)]))))

@@ -6,7 +6,8 @@
     [copicat.io :refer :all]
     [clojure.java.io :as io]
     [clojure.tools.cli :as cli]
-    [clojure.tools.logging :as log] [copicat.formats.ml]))
+    [clojure.tools.logging :as log]
+    [copicat.formats.ml :as ml]))
 
 (defn exists-in [col item]
   (some #(= % item) col))
@@ -21,16 +22,16 @@
     :id :input-path
     :validate [#(or (.isDirectory (io/file %)) (.isFile (io/file %)))
                "Specified folder/file not found"]]
-   [nil "--input-format binary|text-n++|text-n|ml" "Input format"
+   [nil "--input-format binary|text-n++|text-n|proto" "Input format"
     :id :input-format
     :default :binary
-    :validate [#(exists-in [:binary :text-n++ :text-n :ml] %)
+    :validate [#(exists-in [:binary :text-n++ :text-n :proto] %)
                (str "Input format not supported")]
     :parse-fn #(keyword %)]
-   [nil "--output-format binary|text-n|ml|image" "Output format"
+   [nil "--output-format binary|text-n|proto|image" "Output format"
     :id :output-format
     :default :image
-    :validate [#(exists-in [:binary :text-n :ml :image] %)
+    :validate [#(exists-in [:binary :text-n :proto :image] %)
                (str "Output format not supported")]
     :parse-fn #(keyword %)]])
 
@@ -43,7 +44,11 @@
       (do
         (log/info "Could not parse args: " (:errors opts))
         (log/info "Usage: " (:summary opts)))
-      (case output-format
-        :image
-        (save-images
-          (get-name-data-pairs input-path output-path input-format))))))
+      (let [name-data-pairs (get-name-data-pairs input-path output-path input-format)]
+        (case output-format
+          :image
+          (save-images name-data-pairs)
+          :proto
+          (ml/create-dataset name-data-pairs))))))
+
+
