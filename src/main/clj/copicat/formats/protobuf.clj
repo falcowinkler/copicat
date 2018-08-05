@@ -1,4 +1,4 @@
-(ns copicat.formats.ml
+(ns copicat.formats.protobuf
   (:import (copicat.proto DataProtos$TileData)
            (com.google.protobuf ByteString)
            (java.io FileOutputStream FileInputStream))
@@ -24,5 +24,5 @@
   (doseq [[name data] name-data-pairs]
     (if (not (string/blank? name))
       (do
-        (serialize-to-file (str "n_" name) data)
-        (log/info "Saved protocol buffer " name)))))
+        (serialize-to-file (str "n_" name ".pb") data)
+        (log/info "Saved protocol buffer " name ".pb")))))

@@ -7,7 +7,7 @@
     [clojure.java.io :as io]
     [clojure.tools.cli :as cli]
     [clojure.tools.logging :as log]
-    [copicat.formats.ml :as ml]))
+    [copicat.formats.protobuf :as proto]))
 
 (defn exists-in [col item]
   (some #(= % item) col))
@@ -49,6 +49,6 @@
           :image
           (save-images name-data-pairs)
           :proto
-          (ml/create-dataset name-data-pairs))))))
+          (proto/create-dataset name-data-pairs))))))
 
 
