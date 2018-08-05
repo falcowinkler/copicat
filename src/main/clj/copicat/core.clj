@@ -7,7 +7,7 @@
     [clojure.java.io :as io]
     [clojure.tools.cli :as cli]
     [clojure.tools.logging :as log]
-    [copicat.formats.protobuf :as proto]))
+    [copicat.formats.protobuf :as proto] [copicat.formats.tfrecord :as tf]))
 
 (defn exists-in [col item]
   (some #(= % item) col))
@@ -22,16 +22,16 @@
     :id :input-path
     :validate [#(or (.isDirectory (io/file %)) (.isFile (io/file %)))
                "Specified folder/file not found"]]
-   [nil "--input-format binary|text-n++|text-n|proto" "Input format"
+   [nil "--input-format binary|text-n++|text-n|proto|tfrecord" "Input format"
     :id :input-format
     :default :binary
-    :validate [#(exists-in [:binary :text-n++ :text-n :proto] %)
+    :validate [#(exists-in [:binary :text-n++ :text-n :proto :tfrecord] %)
                (str "Input format not supported")]
     :parse-fn #(keyword %)]
-   [nil "--output-format binary|text-n|proto|image" "Output format"
+   [nil "--output-format binary|text-n|proto|tfrecord|image" "Output format"
     :id :output-format
     :default :image
-    :validate [#(exists-in [:binary :text-n :proto :image] %)
+    :validate [#(exists-in [:binary :text-n :proto :tfrecord :image] %)
                (str "Output format not supported")]
     :parse-fn #(keyword %)]])
 
@@ -49,6 +49,8 @@
           :image
           (save-images name-data-pairs)
           :proto
-          (proto/create-dataset name-data-pairs))))))
+          (proto/create-dataset name-data-pairs)
+          :tfrecord
+          (tf/create-dataset name-data-pairs))))))
 
 

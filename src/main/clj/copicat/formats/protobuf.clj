@@ -12,7 +12,7 @@
 (defn serialize-to-file [name data]
   (let [builder (DataProtos$TileData/newBuilder)]
     (.setRawData builder (to-byte-string data))
-    (.writeTo (.build builder) (new FileOutputStream name))))
+    (.writeTo (.build builder) (new FileOutputStream (str name ".pb")))))
 
 (defn de-serialize-from-file [file-name]
   (vec (.toByteArray

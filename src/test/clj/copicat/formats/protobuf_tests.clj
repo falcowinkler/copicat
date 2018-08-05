@@ -1,4 +1,4 @@
-(ns copicat.formats.ml_tests
+(ns copicat.formats.protobuf_tests
   (:require [clojure.test :refer :all]
             [copicat.formats.protobuf :as proto]
             [copicat.extraction :as ex]
