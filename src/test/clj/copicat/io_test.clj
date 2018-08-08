@@ -1,6 +1,6 @@
 (ns copicat.io-test
   (:require [clojure.test :refer :all]
-            [copicat.io :refer :all]
+            [copicat.io-util :refer :all]
             [clojure.java.io :as io]))
 
 (deftest get-file-or-files-test

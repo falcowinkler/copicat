@@ -1,11 +1,11 @@
 (ns copicat.formats.protobuf_tests
   (:require [clojure.test :refer :all]
             [copicat.formats.protobuf :as proto]
-            [copicat.extraction :as ex]
+            [copicat.formats.nplusplus :as n++]
             [clojure.java.io :as io]))
 
 (def test-tile-data
-  (ex/get-tile-data-from-binary-file "resources/test"))
+  (n++/get-tile-data-from-binary-file "resources/test"))
 
 (deftest test-format-conversion
   (testing "if protobuf conversion works"

@@ -8,7 +8,8 @@
                  [org.clojure/tools.cli "0.3.7"]
                  [org.clojure/tools.logging "0.4.0"]
                  [ch.qos.logback/logback-classic "1.1.3"]
-                 [com.google.protobuf/protobuf-java "3.6.1"]]
+                 [com.google.protobuf/protobuf-java "3.6.1"]
+                 [net.mikera/core.matrix "0.18.0"]]
 
 
   :main ^:skip-aot copicat.core

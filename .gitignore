@@ -3,6 +3,8 @@
 /checkouts
 pom.xml
 pom.xml.asc
+*.tfrecord
+*.pb
 *.jar
 *.class
 /.lein-*

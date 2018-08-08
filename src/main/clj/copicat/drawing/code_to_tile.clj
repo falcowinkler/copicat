@@ -1,4 +1,4 @@
-(ns copicat.code-to-tile
+(ns copicat.drawing.code-to-tile
   (:require [quil.core :refer :all]))
 
 (def d 30)

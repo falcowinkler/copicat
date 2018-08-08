@@ -1,13 +1,16 @@
 (ns copicat.core
   (:gen-class)
   (:require
-    [copicat.drawing :refer :all]
-    [copicat.extraction :refer :all]
-    [copicat.io :refer :all]
+    [copicat.drawing.painter :refer :all]
+    [copicat.extraction-util :refer :all]
+    [copicat.io-util :refer :all]
     [clojure.java.io :as io]
     [clojure.tools.cli :as cli]
     [clojure.tools.logging :as log]
-    [copicat.formats.protobuf :as proto] [copicat.formats.tfrecord :as tf]))
+    [copicat.source :as source]
+    [copicat.sink :as sink]))
+
+
 
 (defn exists-in [col item]
   (some #(= % item) col))
@@ -37,20 +40,13 @@
 
 (defn -main
   [& args]
-  (let [opts (cli/parse-opts args cli-options)
-        {:keys [input-path output-path input-format output-format]}
-        (:options opts)]
+  (let [opts (cli/parse-opts args cli-options)]
     (if (not (nil? (:errors opts)))
       (do
         (log/info "Could not parse args: " (:errors opts))
         (log/info "Usage: " (:summary opts)))
-      (let [name-data-pairs (get-name-data-pairs input-path output-path input-format)]
-        (case output-format
-          :image
-          (save-images name-data-pairs)
-          :proto
-          (proto/create-dataset name-data-pairs)
-          :tfrecord
-          (tf/create-dataset name-data-pairs))))))
+      (sink/spit-tile-data
+        (assoc (:options opts) :data-list
+                    (source/slurp-tile-data (:options opts)))))))
 
 
