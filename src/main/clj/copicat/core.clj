@@ -26,13 +26,13 @@
    [nil "--input-format binary|text-n++|text-n|proto|tfrecord" "Input format"
     :id :input-format
     :default :binary
-    :validate [#(exists-in [:binary :text-n++ :text-n :proto :tfrecord] %)
+    :validate [#(exists-in [:binary :text-n++ :text-n :protobuf :tfrecord] %)
                (str "Input format not supported")]
     :parse-fn #(keyword %)]
    [nil "--output-format binary|text-n|proto|tfrecord|image" "Output format"
     :id :output-format
     :default :image
-    :validate [#(exists-in [:binary :text-n :proto :tfrecord :image] %)
+    :validate [#(exists-in [:binary :text-n :protobuf :tfrecord :image] %)
                (str "Output format not supported")]
     :parse-fn #(keyword %)]])
 
