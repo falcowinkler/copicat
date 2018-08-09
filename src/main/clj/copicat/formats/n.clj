@@ -39,13 +39,34 @@
    \1 0x01
    \0 0x00})
 
+(def binary-to-n-code
+  (clojure.set/map-invert n-code-to-binary))
+
 (defn extract-tile-data [level-string]
-  (e/extract-tile-data level-string #".*#.*#.*#([0-9A-Q@;:y=?<>]{713,})"))
+  (e/extract-tile-data level-string #".*#.*#.*#([0-9A-Q@;:y=?<>]{713})"))
 
 (def board-width-n 31)
 
 (defn to-binary [level-string]
-  (-> (map n-code-to-binary (extract-tile-data level-string))
-      (m/reshape  [board-width-n board-height])
-      (m/transpose)
-      (m/reshape  [(* board-width-n board-height)])))
+  (if-let [tile-data (extract-tile-data level-string)]
+    (-> (map n-code-to-binary tile-data)
+        (m/reshape [board-width-n board-height])
+        m/transpose
+        (m/reshape [(* board-width-n board-height)]))))
+
+(defn level-string-from-binary [n++-binary-format name]
+  (assert (= (* board-width-n board-height)
+             (count n++-binary-format))
+          "n++ format to n level string not yet supported")
+  (str
+    "$"
+    name
+    "#Unknown#none#"
+    (apply
+      str
+      (-> (map binary-to-n-code n++-binary-format)
+          (m/reshape [board-height board-width-n])
+          (m/transpose)
+          (m/reshape [(* board-width-n board-height)])))
+    "|"))
+

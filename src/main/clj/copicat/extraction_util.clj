@@ -7,8 +7,8 @@
 
 (defn extract-tile-data [level-data regex]
   (let [matcher (re-matcher regex level-data)]
-    (re-find matcher)
-    (second (re-groups matcher))))
+    (if (not (nil? (re-find matcher)))
+      (second (re-groups matcher)))))
 
 (defn cleanup_level_name [level_name]
   (let [clean-result (string/replace (string/trim level_name) "/" "-")]

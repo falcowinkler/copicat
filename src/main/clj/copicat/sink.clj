@@ -4,14 +4,21 @@
             [copicat.drawing.painter :as painter]
             [clojure.java.io :as io]
             [copicat.io-util :as io-util]
-            [clojure.tools.logging :as log]))
+            [clojure.tools.logging :as log]
+            [copicat.formats.n :as n]))
 
 (defn generate-path [level output-path]
   (str output-path "/" (:level-name level)))
 
 (defmulti spit-tile-data (fn [args] (:output-format args)))
 
-(defmethod spit-tile-data :text-n [{:keys [output-path data-list]}])
+;TODO implement sinks that generate data which can be loaded in the game
+(defmethod spit-tile-data :text-n [{:keys [output-path data-list]}]
+  (doseq [level data-list]
+    (spit output-path
+          (n/level-string-from-binary
+            (:tile-data level)
+            (:level-name level)))))
 
 (defmethod spit-tile-data :tfrecord [{:keys [output-path data-list]}]
   (log/info "Generating .tfrecord file: " output-path)

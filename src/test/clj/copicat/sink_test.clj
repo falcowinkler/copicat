@@ -3,7 +3,8 @@
     [clojure.test :refer :all]
     [copicat.sink :as sink]
     [copicat.formats.nplusplus :as n++]
-    [copicat.formats.protobuf :as pb] [clojure.java.io :as io]))
+    [copicat.formats.protobuf :as pb]
+    [clojure.java.io :as io]))
 
 (def test-data (n++/get-tile-data-from-binary-file "src/test/resources/test-level"))
 (def test-output-folder "test-output")
@@ -26,8 +27,7 @@
       {:output-format :proto
        :output-path   test-output-folder
        :data-list     [{:tile-data test-data :level-name "test"}]})
-    (is (= test-data (pb/de-serialize-from-file (str test-output-folder "/test.pb"))))
-    (io/delete-file (str test-output-folder "/test.pb"))))
+    (is (= test-data (pb/de-serialize-from-file (str test-output-folder "/test.pb"))))))
 
 (deftest test-tfrecord-sink
   (testing "tfrecord file is generated"
@@ -35,5 +35,4 @@
       {:output-format :tfrecord
        :output-path   (str test-output-folder "/test.tfrecord")
        :data-list     [{:tile-data test-data}]})
-    (is (true? (.exists (io/as-file (str test-output-folder "/test.tfrecord")))))
-    (io/delete-file (str test-output-folder "/test.tfrecord"))))
+    (is (true? (.exists (io/as-file (str test-output-folder "/test.tfrecord")))))))
