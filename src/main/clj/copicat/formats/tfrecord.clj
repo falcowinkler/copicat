@@ -1,6 +1,5 @@
 (ns copicat.formats.tfrecord
-  (:require [clojure.tools.logging :as log]
-            [copicat.io-util :as io-util])
+  (:require [copicat.io-util :as io-util])
   (:import (copicat.proto BytesList Example Feature Features)
            (java.io FileOutputStream DataOutputStream)
            (copicat.tfrecord TFRecordWriter)))

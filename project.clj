@@ -10,8 +10,6 @@
                  [ch.qos.logback/logback-classic "1.1.3"]
                  [com.google.protobuf/protobuf-java "3.6.1"]
                  [net.mikera/core.matrix "0.18.0"]]
-
-
   :main ^:skip-aot copicat.core
   :target-path "target/default"
   :profiles {:uberjar {:aot :all}

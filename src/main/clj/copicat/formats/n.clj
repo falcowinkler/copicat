@@ -1,6 +1,7 @@
 (ns copicat.formats.n
   (:require [clojure.core.matrix :as m]
-            [copicat.extraction-util :as e]))
+            [copicat.extraction-util :as e]
+            [copicat.drawing.draw-data :refer :all]))
 
 (def n-code-to-binary
   {\3 0x08
@@ -41,8 +42,10 @@
 (defn extract-tile-data [level-string]
   (e/extract-tile-data level-string #".*#.*#.*#([0-9A-Q@;:y=?<>]{713,})"))
 
+(def board-width-n 31)
+
 (defn to-binary [level-string]
   (-> (map n-code-to-binary (extract-tile-data level-string))
-      (m/reshape  [31 23])
+      (m/reshape  [board-width-n board-height])
       (m/transpose)
-      (m/reshape  [(* 31 23)])))
+      (m/reshape  [(* board-width-n board-height)])))

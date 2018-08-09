@@ -30,9 +30,9 @@
   (exit))
 
 (defn image-width [data-sample]
-  (* 30 (/ (count data-sample) 23)))
+  (* d (/ (count data-sample) board-height)))
 
 (defn save-images [data-list output-path]
   (sketch
-    :size [(image-width (:tile-data (first data-list))) (* 23 d)]
+    :size [(image-width (:tile-data (first data-list))) (* board-height d)]
     :draw (partial draw-and-save data-list output-path)))
