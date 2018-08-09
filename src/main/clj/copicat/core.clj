@@ -18,9 +18,7 @@
 
 (def cli-options
   [["-o" "--output file-or-folder-path" nil "Output file or folder path"
-    :id :output-path
-    :validate [#(or (.isDirectory (io/file %)) (.isFile (io/file %)))
-               "Specified folder/file not found"]]
+    :id :output-path]
    ["-i" "--input file-or-folder-path" "Input file or folder path"
     :id :input-path
     :validate [#(or (.isDirectory (io/file %)) (.isFile (io/file %)))
